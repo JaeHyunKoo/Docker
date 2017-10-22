@@ -46,3 +46,28 @@ RUN echo y | android update sdk --no-ui -a --filter build-tools-19.1.0,build-too
 ENV ANDROID_NDK /opt/android-ndk-linux
 RUN cd /opt && wget -O android-ndk-r13b.zip -q https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip && \
                unzip -q android-ndk-r13b.zip && rm -f android-ndk-r13b.zip && ln -sf /opt/android-ndk-r13b /opt/android-ndk-linux
+			  
+			  
+# Install Gradle
+ENV GRADLE_HOME=/opt/gradle
+ENV GRADLE_FOLDER=/root/.gradle
+
+RUN mkdir -p /opt/tools
+
+# Download and extract gradle to /opt/tools folder
+RUN wget --no-check-certificate --no-cookies https://downloads.gradle.org/distributions/gradle-2.14.1-bin.zip \
+    && unzip gradle-2.14.1-bin.zip -d /opt/tools \
+    && rm -f gradle-2.14.1-bin.zip
+
+RUN ln -s /opt/tools/gradle-2.14.1 /opt/gradle
+
+# Add executables to path
+RUN update-alternatives --install "/usr/bin/gradle" "gradle" "/opt/gradle/bin/gradle" 1 && \
+    update-alternatives --set "gradle" "/opt/gradle/bin/gradle" 
+	
+RUN wget --no-check-certificate --no-cookies https://downloads.gradle.org/distributions/gradle-3.3-bin.zip \
+    && unzip gradle-3.3-bin.zip -d /opt/tools \
+    && rm -f gradle-3.3-bin.zip
+
+	
+ENTRYPOINT ["/bin/bash"]
