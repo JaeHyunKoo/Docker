@@ -66,6 +66,7 @@ RUN chmod a+x /download_gradle.sh
 
 RUN /download_gradle.sh 2.14.1
 RUN /download_gradle.sh 3.3
+RUN /download_gradle.sh 4.2.1
 
 #make change gradle
 RUN echo '#!/bin/bash' >> /usr/local/bin/setgradle
