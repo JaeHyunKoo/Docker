@@ -64,6 +64,7 @@ RUN echo 'version=$1' >> /download_gradle.sh
 RUN echo 'echo y | wget --no-check-certificate --no-cookies https://downloads.gradle.org/distributions/gradle-${version}-bin.zip && unzip gradle-${version}-bin.zip -d /opt/tools && rm -f gradle-${version}-bin.zip' >> /download_gradle.sh
 RUN chmod a+x /download_gradle.sh
 
+#Download gradle
 RUN /download_gradle.sh 2.14.1
 RUN /download_gradle.sh 3.3
 RUN /download_gradle.sh 4.2.1
